@@ -51,7 +51,27 @@ def insert_sort(li):
 
 @getfuntime
 def quick_sort(li):
-    pass
+    if len(li) <= 1:
+        return
+    __quick_sort_sub(li, 0, len(li)-1)
+
+
+def __quick_sort_sub(li, i, j):
+    if i >= j:
+        return
+    t = li[i]
+    ii = i
+    jj = j
+    while i < j:
+        while i < j and li[j] > t:
+            j -= 1
+        li[i] = li[j]
+        while i < j and li[i] < t:
+            i += 1
+        li[j] = li[i]
+    li[i] = t
+    __quick_sort_sub(li, ii, i-1)
+    __quick_sort_sub(li, i+1, jj)
 
 
 @getfuntime
@@ -67,8 +87,12 @@ def heap_sort(li):
 if __name__ == '__main__':
     l = list(range(2000))
     shuffle(l)
-    insert_sort(l)
+    # l = [19, 11, 6, 18, 10, 0, 12, 13, 15, 17, 1, 16, 3, 14, 9, 7, 2, 8, 4, 5]
     print(l)
+    quick_sort(l)
+    print(l)
+    shuffle(l)
+    insert_sort(l)
     shuffle(l)
     select_sort(l)
     shuffle(l)
