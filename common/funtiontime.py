@@ -1,12 +1,12 @@
 from time import time
 
 
-def getfuntime(function):
+def getfuntime(func):
     def wrapper(*args, **kwargs):
         t1 = time()
         try:
-            ret = function(*args, **kwargs)
+            ret = func(*args, **kwargs)
         finally:
-            print("%s 运行时间：%s 秒" % (function.__name__, time() - t1))
+            print("%s running time: %s seconds." % (func.__name__, time() - t1))
         return ret
-    return wrapper()
+    return wrapper
