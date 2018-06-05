@@ -1,6 +1,6 @@
 from common.funtiontime import getfuntime
 from random import shuffle
-
+from math import log, ceil
 
 @getfuntime
 def bubble_sort(li):
@@ -160,24 +160,47 @@ def sys_sort(li):
     li.sort()
 
 
+@getfuntime
+def base_sort(li, base=16):
+    maxnum = max(li)
+    k = ceil(log(maxnum, base))
+    t = [li]
+    for i in range(1, k+1):
+        bits = base**(i-1)
+        bucket = []
+        for _ in range(base):
+            bucket.append([])
+        for tt in t:
+            for num in tt:
+                tn = (num // bits) % base
+                bucket[tn].append(num)
+        t = bucket
+    li.clear()
+    for tt in t:
+        li.extend(tt)
+
+
 if __name__ == '__main__':
-    l = list(range(2000))
+    l0 = list(range(2000))
     # l = [19, 11, 6, 18, 10, 0, 12, 13, 15, 17, 1, 16, 3, 14, 9, 7, 2, 8, 4, 5]
-    shuffle(l)
-    sys_sort(l)
-    shuffle(l)
-    tim_sort(l)
-    shuffle(l)
-    heap_sort(l)
-    shuffle(l)
-    merge_sort(l)
-    shuffle(l)
-    quick_sort(l)
-    shuffle(l)
-    insert_sort(l)
-    shuffle(l)
-    select_sort(l)
-    shuffle(l)
-    bubble_sort(l)
-    shuffle(l)
-    bubble_sort2(l)
+    shuffle(l0)
+    l1 = l0[:]
+    base_sort(l1)
+    l1 = l0[:]
+    sys_sort(l1)
+    l1 = l0[:]
+    tim_sort(l1)
+    l1 = l0[:]
+    heap_sort(l1)
+    l1 = l0[:]
+    merge_sort(l1)
+    l1 = l0[:]
+    quick_sort(l1)
+    l1 = l0[:]
+    insert_sort(l1)
+    l1 = l0[:]
+    select_sort(l1)
+    l1 = l0[:]
+    bubble_sort(l1)
+    l1 = l0[:]
+    bubble_sort2(l1)
