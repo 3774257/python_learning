@@ -27,7 +27,7 @@ class Solution:
             return 0
         else:
             return r
-
+        # 第二种方法计算
         r = 0
         while x > 0:
             x, d = divmod(x, 10)
