@@ -1,7 +1,7 @@
 # 算法题，输入两个整数n和sum，从数列1，2，3.......n 中随意取几个数，使其和等于sum，要求将其中所有的可能组合列出来。
 
-n = 20
-k = 31
+n = 21
+k = 24
 
 
 def main(i0=0, i=0, stack=[]):
@@ -10,8 +10,11 @@ def main(i0=0, i=0, stack=[]):
         if not stack:
             i0 += 1
             i = i0
-            if i0 <= n:
+            if i0 <= n and i0 <= k:
                 stack.append(i)
+                if i0 == k:
+                    print(stack)
+                    break
                 main(i0, i)
                 stack.pop()
 
