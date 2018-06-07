@@ -57,7 +57,7 @@ for k, d in enumerate(dets):
 c_d = dict(zip(candidate, dist))
 
 cd_sorted = sorted(c_d.items(), key=lambda d:d[1])
-print("The persion is: ", cd_sorted[0][0])
+print("The person is: ", cd_sorted[0][0])
 # dlib.hit_enter_to_continue()
 
 
