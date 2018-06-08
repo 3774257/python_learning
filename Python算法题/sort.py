@@ -1,6 +1,8 @@
+# 经典常用排序算法实现
 from common.funtiontime import getfuntime
 from random import shuffle
 from math import log, ceil
+
 
 @getfuntime
 def bubble_sort(li):
