@@ -17,7 +17,7 @@ class Solution:
         """
         i = 0
         j = len(nums)-1
-        if j <0:
+        if j < 0:
             return 0
         if j == 0:
             if nums[0] == val:
@@ -31,6 +31,19 @@ class Solution:
                 j -= 1
             if i < j:
                 nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+        return i
+
+    def removeElement2(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        i = 0
+        for c in nums:
+            if c != val:
+                nums[i] = c
                 i += 1
         return i
 
