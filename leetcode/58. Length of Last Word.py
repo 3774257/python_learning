@@ -8,16 +8,15 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        chars = 'abcdefghijklmnopqrstuvwxyz'
-        schars = set(chars + chars.upper())
+        space = ' '
         isword = False
         rets = 0
         for c in s[::-1]:
-            if isword == False and c in schars:
+            if isword == False and c != space:
                 isword = True
                 rets += 1
-            elif isword == True and c in schars:
+            elif isword == True and c != space:
                 rets += 1
-            elif isword == True and c not in schars:
+            elif isword == True and c == space:
                 return rets
         return rets
