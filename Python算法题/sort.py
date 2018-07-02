@@ -182,6 +182,18 @@ def base_sort(li, base=16):
         li.extend(tt)
 
 
+@getfuntime
+def dwarf_sort(li):
+    i = 0
+    n = len(li)
+    while i < n:
+        if i > 0 and li[i] < li[i-1]:
+            li[i-1], li[i] = li[i], li[i-1]
+            i -= 1
+        else:
+            i += 1
+
+
 if __name__ == '__main__':
     l0 = list(range(2000))
     # l = [19, 11, 6, 18, 10, 0, 12, 13, 15, 17, 1, 16, 3, 14, 9, 7, 2, 8, 4, 5]
@@ -206,3 +218,5 @@ if __name__ == '__main__':
     bubble_sort(l1)
     l1 = l0[:]
     bubble_sort2(l1)
+    l1 = l0[:]
+    dwarf_sort(l1)
