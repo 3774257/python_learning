@@ -1,6 +1,7 @@
 from time import time
 
 
+# 装饰器用法
 def getfuntime(func):
     def wrapper(*args, **kwargs):
         t1 = time()
