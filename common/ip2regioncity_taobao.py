@@ -1,7 +1,7 @@
 from urllib import request
 import json
 
-
+"""从taobao获取IP对应的省市信息"""
 def get_ip_area(ip):
     try:
         apiurl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip
