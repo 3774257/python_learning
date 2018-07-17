@@ -1,18 +1,17 @@
-from urllib import request
 import requests
 import json
 
-"""从taobao获取IP对应的省市信息"""
+
 def get_ip_area(ip, proxy = None):
+    """从taobao获取IP对应的省市信息"""
     try:
         apiurl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip
         # print(apiurl)
-        content = request.urlopen(apiurl).read().decode('utf-8')
+        # content = request.urlopen(apiurl).read().decode('utf-8')
         if proxy:
             content = requests.get(apiurl, proxies={'http': proxy})
         else:
             content = requests.get(apiurl)
-
         # print(content)
         data = json.loads(content.text)['data']
         code = json.loads(content.text)['code']
