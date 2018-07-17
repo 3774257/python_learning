@@ -1,32 +1,38 @@
 from urllib import request
+import requests
 import json
 
 """从taobao获取IP对应的省市信息"""
-def get_ip_area(ip):
+def get_ip_area(ip, proxy = None):
     try:
         apiurl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip
-        print(apiurl)
+        # print(apiurl)
         content = request.urlopen(apiurl).read().decode('utf-8')
-        print(content)
-        data = json.loads(content)['data']
-        code = json.loads(content)['code']
+        if proxy:
+            content = requests.get(apiurl, proxies={'http': proxy})
+        else:
+            content = requests.get(apiurl)
+
+        # print(content)
+        data = json.loads(content.text)['data']
+        code = json.loads(content.text)['code']
         if code == 0:
-            print("ip=", data['ip'])
-            print("country=", data['country'])
-            print("area=", data['area'])
-            print("region=", data['region'])
-            print("city=", data['city'])
-            print("isp=", data['isp'])
-            print("country_id=", data['country_id'])
-            print("area_id=", data['area_id'])
-            print("region_id=", data['region_id'])
-            print("city_id=", data['city_id'])
+            ret = {}
+            ret['ip'] = data['ip']
+            ret['country'] = data['country']
+            ret['region'] = data['region']
+            ret['city'] = data['city']
+            return ret
         else:
             print(data)
+            return {}
     except Exception as ex:
         print(ex)
 
 
 if __name__ == '__main__':
     ip = '125.76.245.13'
-    get_ip_area(ip)
+    data = get_ip_area(ip)
+    if data:
+        print(data)
+
