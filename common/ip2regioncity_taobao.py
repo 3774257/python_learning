@@ -4,8 +4,9 @@ import json
 
 def get_ip_area(ip, **kwargs):
     """从taobao获取IP对应的省市信息
-    proxies: proxies=None
-    timeout: timeout=None
+    ip: ip="192.168.1.1"
+    proxies: proxies=proxies = {'http': "202.1.1.1:8888"}
+    timeout: timeout=30
     """
     try:
         apiurl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip
@@ -26,15 +27,14 @@ def get_ip_area(ip, **kwargs):
             print(data)
             return {}
     except Exception as ex:
-        print(ex)
         pass
 
 
 if __name__ == '__main__':
-    ip = '125.76.245.13'
+    sip = '125.76.245.13'
     from time import time
     t1 = time()
-    data = get_ip_area(ip)
+    data = get_ip_area(sip)
     print("Cost Time:", time() - t1)
     if data:
         print(data)
