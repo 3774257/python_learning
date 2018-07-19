@@ -6,6 +6,15 @@ __all__ = ['ThreadPool']
 
 
 class ThreadPool(object):
+    """Thread的线程池
+    用法：
+    pool = ThreadPool(max_workers=2)
+    for i in range(10):
+        pool.add(target=sleept, args=(i,), highpriority=not i % 4)
+    pool.start()
+    pool.join()
+
+    """
     def __init__(self, max_workers=10):
         if max_workers <= 0:
             raise ValueError("max_workers must be greater than 0!!!")
@@ -60,9 +69,7 @@ def _main():
 
     pool = ThreadPool(max_workers=2)
     for i in range(20):
-
         pool.add(target=sleept, args=(i,), highpriority=not i % 4)
-
     pool.start()
     pool.join()
 
