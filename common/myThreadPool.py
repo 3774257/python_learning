@@ -28,10 +28,10 @@ class ThreadPool(object):
     def add(self, target, args=(), kwargs=None, highpriority=False):
         with self._work_list_lock:
             thread = Thread(target=target, args=args, kwargs=kwargs)
-            if not highpriority:
-                self._work_list.append(thread)
-            else:
+            if highpriority:
                 self._work_list.insert(0, thread)
+            else:
+                self._work_list.append(thread)
 
     def start(self):
         if self._running:
