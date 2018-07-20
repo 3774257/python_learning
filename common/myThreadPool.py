@@ -23,6 +23,7 @@ class ThreadPool(object):
         self._work_list_lock = Lock()
         self._hasjoin = False
         self._startthread = Thread(target=self._start)
+        self._running = False
 
     def add(self, target, args=(), kwargs=None, highpriority=False):
         with self._work_list_lock:
@@ -33,7 +34,11 @@ class ThreadPool(object):
                 self._work_list.insert(0, thread)
 
     def start(self):
-        self._startthread.start()
+        if self._running:
+            print("Threadpool已经开始运行！！！")
+        else:
+            self._running = True
+            self._startthread.start()
 
     def _start(self):
         while True:
@@ -51,21 +56,24 @@ class ThreadPool(object):
                     current_running_workers += 1
             if not unruned_workers:
                 break
-            time.sleep(0.05)
+            time.sleep(0.02)
 
     def join(self):
+        if not self._running:
+            print("Threadpool还没开始运行。。。")
+            return
         with self._work_list_lock:
             for thread in self._work_list:
                 if not thread._started.is_set():
-                    time.sleep(0.5)
+                    time.sleep(0.1)
                 if thread.is_alive():
                     thread.join()
 
 
 def _main():
-    def sleept(i):
-        time.sleep(2)
-        print("has sleep %d s..." % i)
+    def sleept(n):
+        time.sleep(1)
+        print("has sleep %d s..." % n)
 
     pool = ThreadPool(max_workers=2)
     for i in range(20):
