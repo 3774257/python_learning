@@ -27,7 +27,7 @@ def get_ip_area(ip, **kwargs):
             print(data)
             return {}
     except Exception as ex:
-        pass
+        return {}
 
 
 if __name__ == '__main__':
