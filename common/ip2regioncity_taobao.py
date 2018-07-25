@@ -10,9 +10,6 @@ def get_ip_area(ip, **kwargs):
     """
     try:
         apiurl = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip
-        # print(apiurl)
-        # content = request.urlopen(apiurl).read().decode('utf-8')
-
         content = requests.get(apiurl, **kwargs)
         data = json.loads(content.text)['data']
         code = json.loads(content.text)['code']
@@ -24,7 +21,6 @@ def get_ip_area(ip, **kwargs):
             ret['city'] = data['city']
             return ret
         else:
-            print(data)
             return {}
     except Exception as ex:
         return {}

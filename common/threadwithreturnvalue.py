@@ -1,7 +1,7 @@
+"""带返回值的线程库"""
 import threading
 
 
-"""带返回值的线程库"""
 class ThreadWithReturnValue(threading.Thread):
 
     def __init__(self, target=None, args=(), kwargs=None):
@@ -25,7 +25,7 @@ class ThreadWithReturnValue(threading.Thread):
     def get_return(self):
         try:
             return self._result
-        except Exception:
+        except:
             return None
 
 
