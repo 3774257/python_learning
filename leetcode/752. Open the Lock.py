@@ -1,32 +1,34 @@
 class Solution:
 
-    def getnextstep(self, step):
-        for i in range(4):
-            nn = step[:i]+self.key[step[i]][0]+step[i+1:]
-            if nn not in self.has:
-                yield nn
-            nn = step[:i]+self.key[step[i]][1]+step[i+1:]
-            if nn not in self.has:
-                yield nn
 
     def openLock(self, deadends, target):
-        self.key = {str(i): [str((i+1) % 10), str((i-1) % 10)] for i in range(10)}
+        key = {str(i): [str((i+1) % 10), str((i-1) % 10)] for i in range(10)}
         curr = ['0000']
-        self.has = set(curr)
+        has = set(curr)
         if curr[0] in deadends or target in deadends:
             return -1
         if curr[0] == target:
             return 0
         step = 1
+
+        def getnextstep(step):
+            for i in range(4):
+                nn = step[:i] + key[step[i]][0] + step[i + 1:]
+                if nn not in has:
+                    yield nn
+                nn = step[:i] + key[step[i]][1] + step[i + 1:]
+                if nn not in has:
+                    yield nn
+
         while curr:
             nstep = []
             for n in curr:
-                for ne in self.getnextstep(n):
-                    if ne in deadends or ne in self.has:
+                for ne in getnextstep(n):
+                    if ne in deadends or ne in has:
                         continue
                     if ne == target:
                         return step
-                    self.has.add(ne)
+                    has.add(ne)
                     nstep.append(ne)
             step += 1
             curr = nstep
