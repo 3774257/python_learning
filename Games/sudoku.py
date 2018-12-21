@@ -42,12 +42,15 @@ for i in range(9):
         if sudoku[i, j] != 0:
             continue
         t = set()
-        for m in range(9):
-            t.add(sudoku[i, m])
-            t.add(sudoku[m, j])
-        for m in range(i-i % 3, i-i % 3 + 3):
-            for n in range(j - j % 3, j - j % 3 + 3):
-                t.add(sudoku[m, n])
+        # for m in range(9):
+        #     t.add(sudoku[i, m])
+        #     t.add(sudoku[m, j])
+        # for m in range(i-i % 3, i-i % 3 + 3):
+        #     for n in range(j - j % 3, j - j % 3 + 3):
+        #         t.add(sudoku[m, n])
+        t.update(set(sudoku[i, :]))
+        t.update(set(sudoku[:, j]))
+        t.update(set(sudoku[i-i%3:i-i%3+3, j-j%3:j-j%3+3].flatten()))
         possible_t[(i, j)] = nums - t
         print((i, j), sudoku[i, j], possible_t[(i, j)])
 
@@ -136,16 +139,17 @@ if not len(possible_t):
 def dfs(m=0, n=0):
     for i in range(m, 9):
         for j in range(n if i == m else 0, 9):
-            if sudoku[i, j] == 0:
-                for value in possible_t[(i, j)]:
-                    if value in sudoku[i, :] or value in sudoku[:, j] or value in sudoku[i-i%3:i-i%3+3, j-j%3:j-j%3+3]:
-                        continue
-                    sudoku[i, j] = value
-                    if i == 8 and j == 8:
-                        print("DFS Find:\n", sudoku)
-                    else:
-                        dfs(i, j)
-                sudoku[i, j] = 0
-                return
+            if sudoku[i, j] != 0:
+                continue
+            for value in possible_t[(i, j)]:
+                if value in sudoku[i, :] or value in sudoku[:, j] or value in sudoku[i-i%3:i-i%3+3, j-j%3:j-j%3+3]:
+                    continue
+                sudoku[i, j] = value
+                if i == 8 and j == 8:
+                    print("DFS Find:\n", sudoku)
+                else:
+                    dfs(i, j)
+            sudoku[i, j] = 0
+            return
 
 dfs(0, 0)
