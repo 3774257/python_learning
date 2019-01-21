@@ -16,6 +16,17 @@ sudoku = [
     [5,0,0,0,0,0,0,2,0]
 ]
 
+sudoku = [
+    [8,0,0,0,0,0,0,0,0],
+    [0,0,3,6,0,0,0,0,0],
+    [0,7,0,0,9,0,2,0,0],
+    [0,5,0,0,0,7,0,0,0],
+    [0,0,0,0,4,5,7,0,0],
+    [0,0,0,1,0,0,0,3,0],
+    [0,0,1,0,0,0,0,6,8],
+    [0,0,8,5,0,0,0,1,0],
+    [0,9,0,0,0,0,4,0,0]
+]
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 nums = set(nums)
 
@@ -41,14 +52,7 @@ for i in range(9):
     for j in range(9):
         if sudoku[i, j] != 0:
             continue
-        t = set()
-        # for m in range(9):
-        #     t.add(sudoku[i, m])
-        #     t.add(sudoku[m, j])
-        # for m in range(i-i % 3, i-i % 3 + 3):
-        #     for n in range(j - j % 3, j - j % 3 + 3):
-        #         t.add(sudoku[m, n])
-        t.update(set(sudoku[i, :]))
+        t = set(sudoku[i, :])
         t.update(set(sudoku[:, j]))
         t.update(set(sudoku[i-i%3:i-i%3+3, j-j%3:j-j%3+3].flatten()))
         possible_t[(i, j)] = nums - t
